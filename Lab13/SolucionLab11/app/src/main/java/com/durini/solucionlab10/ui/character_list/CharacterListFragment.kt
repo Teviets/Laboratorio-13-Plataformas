@@ -1,4 +1,4 @@
-package com.durini.solucionlab10.ui.fragments
+package com.durini.solucionlab10.ui.character_list
 
 import android.os.Bundle
 import android.view.View
@@ -21,7 +21,7 @@ import com.durini.solucionlab10.data.remote.dto.CharacterDto
 import com.durini.solucionlab10.data.remote.dto.CharactersResponse
 import com.durini.solucionlab10.data.remote.dto.mapToModel
 import com.durini.solucionlab10.ui.KEY_EMAIL
-import com.durini.solucionlab10.ui.adapters.CharacterAdapter
+import com.durini.solucionlab10.ui.character_details.CharacterAdapter
 import com.durini.solucionlab10.ui.dataStore
 import com.durini.solucionlab10.ui.removePreferencesValue
 import com.google.android.material.appbar.MaterialToolbar

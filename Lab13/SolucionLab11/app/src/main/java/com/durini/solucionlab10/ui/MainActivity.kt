@@ -1,4 +1,4 @@
-package com.durini.solucionlab10.ui.activities
+package com.durini.solucionlab10.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

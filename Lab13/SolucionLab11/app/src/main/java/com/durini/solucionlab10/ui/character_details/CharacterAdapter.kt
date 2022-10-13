@@ -1,4 +1,4 @@
-package com.durini.solucionlab10.ui.adapters
+
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,13 +7,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
-import coil.disk.DiskCache
 import coil.load
 import coil.request.CachePolicy
 import coil.transform.CircleCropTransformation
 import com.durini.solucionlab10.R
 import com.durini.solucionlab10.data.local.model.Character
-import com.durini.solucionlab10.data.remote.dto.CharacterDto
 
 class CharacterAdapter(
     private val dataSet: MutableList<Character>,
