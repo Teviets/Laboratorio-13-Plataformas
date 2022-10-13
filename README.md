@@ -1,1 +1,0 @@
-# Laboratorio-13-Plataformas
