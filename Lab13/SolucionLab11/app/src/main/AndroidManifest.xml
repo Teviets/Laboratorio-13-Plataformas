@@ -16,7 +16,7 @@
         android:theme="@style/Theme.SolucionLab8y9"
         tools:targetApi="31">
         <activity
-            android:name="com.durini.solucionlab10.ui.activities.MainActivity"
+            android:name="com.durini.solucionlab10.ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
