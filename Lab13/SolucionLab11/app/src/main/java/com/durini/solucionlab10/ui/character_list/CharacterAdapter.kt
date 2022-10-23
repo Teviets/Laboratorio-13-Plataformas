@@ -1,4 +1,4 @@
-
+package com.durini.solucionlab10.ui.character_list
 
 import android.view.LayoutInflater
 import android.view.View

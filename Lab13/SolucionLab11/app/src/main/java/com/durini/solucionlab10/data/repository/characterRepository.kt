@@ -3,12 +3,13 @@ package com.durini.solucionlab10.data.repository
 import android.provider.ContactsContract
 import com.durini.solucionlab10.data.local.model.Character
 import com.durini.solucionlab10.data.util.DataState
+import com.durini.solucionlab10.data.util.Resource
 import kotlinx.coroutines.flow.Flow
 
 interface characterRepository {
-    fun getAllCharacters():Flow<DataState<List<Character>>>
-    fun deleteAllCharacters(): Flow<DataState<Int>>
-    fun updateCharacter(character: Character): Flow<DataState<Character?>>
-    fun getCharacter(id: Int): Flow<DataState<Character>>
-    fun deleteCharacter(id : Int):Flow<DataState<Int>>
+    suspend fun getAllCharacters(): Resource<List<Character>>
+    suspend fun deleteAllCharacters(): Resource<Unit>
+    suspend fun getCharacter(id: Int): Resource<Character?>
+    suspend fun updateCharacter(character: Character): Resource<Unit>
+    suspend fun deleteCharacter(id: Int): Resource<Unit>
 }

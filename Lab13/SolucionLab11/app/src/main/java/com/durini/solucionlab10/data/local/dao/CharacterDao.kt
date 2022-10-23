@@ -20,7 +20,7 @@ interface CharacterDao {
     suspend fun update(character: Character)
 
     @Delete
-    suspend fun delete(character: Character): Int
+    suspend fun delete(character: Character?): Int
 
     @Query("DELETE FROM character")
     suspend fun deleteAll(): Int

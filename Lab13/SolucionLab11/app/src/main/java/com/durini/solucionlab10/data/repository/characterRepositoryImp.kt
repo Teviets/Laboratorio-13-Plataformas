@@ -4,56 +4,63 @@ import com.durini.solucionlab10.data.local.dao.CharacterDao
 import com.durini.solucionlab10.data.local.model.Character
 import com.durini.solucionlab10.data.remote.api.RickMortyApi
 import com.durini.solucionlab10.data.remote.dto.mapToModel
-import com.durini.solucionlab10.data.util.DataState
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import java.lang.Exception
+
+import com.durini.solucionlab10.data.util.Resource
+import kotlin.Exception
 
 class characterRepositoryImp(
     private val characterDao:CharacterDao,
     private var api: RickMortyApi
 ) :characterRepository {
-    override fun getAllCharacters(): Flow<DataState<List<Character>>> = flow {
+    override suspend fun getAllCharacters(): Resource<List<Character>> {
         val localCharacters = characterDao.getCharacters()
-        if (localCharacters.isEmpty()){
+        return if(localCharacters.isEmpty()){
             try {
-                val remoteCharacters = api.getCharacters().results
-                val charactersToStore = remoteCharacters.map{ dto -> dto.mapToModel() }
+                val remoteCharacter = api.getCharacters().results
+                val charactersToStore = remoteCharacter.map { dto -> dto.mapToModel() }
                 characterDao.insertAll(charactersToStore)
-                emit(DataState.Success(charactersToStore))
+                Resource.Success(charactersToStore)
             }catch (e: Exception){
-                emit(DataState.Error(e))
+                Resource.Error(e.message ?: "")
             }
-
         }else {
-            emit(DataState.Success(localCharacters))
+            Resource.Success(localCharacters)
         }
     }
 
-    override fun deleteAllCharacters(): kotlinx.coroutines.flow.Flow<DataState<Int>> {
-        // Loading
-        // Obtener registros se borraron
-        // Si se borraron mas de 0, Succes
-        // Si se borraron 0, Error
+    override suspend fun deleteAllCharacters(): Resource<Unit> {
+        return try {
+            characterDao.deleteAll()
+            Resource.Success(Unit)
+        }catch (e: Exception){
+            Resource.Error(e.message ?: "")
+        }
     }
 
-    override fun updateCharacter(character: Character): Flow<DataState<Character?>> {
-        // Retornar flow
-        // Emitir Loading
-        // Si se borrar
+    override suspend fun getCharacter(id: Int): Resource<Character?> {
+        return try {
+            Resource.Success(characterDao.getCharacter(id))
+        } catch (e: Exception){
+            Resource.Error(e.message ?:"")
+        }
     }
 
-
-    override fun getCharacter(id: Int): kotlinx.coroutines.flow.Flow<DataState<Character>> {
-        // Retornar flow
-        // Emitir Loading
-        // Obtener de base de datos
-        //
+    override suspend fun updateCharacter(character: Character): Resource<Unit> {
+        return try {
+            characterDao.update(character)
+            Resource.Success(Unit)
+        } catch (e: Exception){
+            Resource.Error(e.message ?: "")
+        }
     }
 
-    override fun deleteCharacter(id: Int): Flow<DataState<Int>> {
-        TODO("Not yet implemented")
+    override suspend fun deleteCharacter(id: Int): Resource<Unit> {
+        return try {
+            characterDao.delete(characterDao.getCharacter(id))
+            Resource.Success(Unit)
+        }catch (e: Exception){
+            Resource.Error(e.message ?:"")
+        }
     }
-
 
 }
